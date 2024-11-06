@@ -1,0 +1,18 @@
+version: '1.0'
+services:
+  model-trainer:
+    build: .
+    ports:
+      - "8900:8900"
+    stdin_open: true # docker run -i
+    tty: true        # docker run -t
+    volumes:
+      - ./contents:/workspace/contents
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
+              
